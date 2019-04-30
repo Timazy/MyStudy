@@ -39,7 +39,6 @@ public class Iterable_s implements Iterable<String>{
 			System.out.println(iterator.next());
 		}
 		
-		
 	}
 	
 	
