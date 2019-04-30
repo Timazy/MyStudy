@@ -22,7 +22,7 @@ public class AbTestSDK {
 	static{
 		Domain domain = new Domain(1);
 		//左面的 
-		Domain domain_left = new Domain(2);
+		//Domain domain_left = new Domain(2);
 		Layer layer1 = new Layer(2,1,Strategy.HASH,"id");
 		layer1.getExps().add(new Exp(1,1,0,40,211,"location=left"));
 		//右面的
