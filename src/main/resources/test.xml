@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bucket>
+	<layer strategy="hash" level="1">
+		<part weight="10">a</part>
+		<part weight="20">b</part>
+		<part weight="0">a</part>
+		<part weight="3">b</part>
+	</layer>
+	
+	<layer strategy="hash" level="1">
+		<part weight="10">a</part>
+		<part weight="20">b</part>
+		<part weight="0">a</part>
+		<part weight="3">b</part>
+	</layer>
+</bucket>

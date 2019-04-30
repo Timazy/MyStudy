@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ab:schema xmlns="http://www.w3school.com.cn" 
+	targetNamespace="http://www.w3school.com.cn" 
+	xmlns:ab="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified">
+		
+	<ab:element name="bucket">
+		<ab:complexType>
+			<ab:sequence >
+				<ab:element minOccurs="0" maxOccurs="unbounded" ref="layer" />
+			</ab:sequence>
+			<ab:attribute name="project" type="ab:string" use="required"/>
+		</ab:complexType>
+		<ab:unique name="expKey">
+			<ab:selector xpath="ab:layer"></ab:selector>
+			<ab:field xpath="part"></ab:field>
+		</ab:unique>
+		<ab:unique name="leverKey">
+			<ab:selector xpath="layer"></ab:selector>
+			<ab:field xpath="@level"></ab:field>
+		</ab:unique>
+	</ab:element>
+
+	<ab:element name="layer">
+		<ab:complexType>
+			<ab:sequence>
+				<ab:element ref="part" minOccurs="1" maxOccurs="unbounded" />
+			</ab:sequence>
+			<ab:attributeGroup ref="layer_flow_control_selection" />
+		</ab:complexType>
+		
+	</ab:element>
+
+	<ab:element name="part">
+		<ab:complexType>
+			<ab:simpleContent>
+				<ab:extension base="part_type">
+					<ab:attributeGroup ref="part_weight_range"></ab:attributeGroup>
+				</ab:extension>
+			</ab:simpleContent>
+		</ab:complexType>
+	</ab:element>
+	
+	<ab:simpleType name="part_type">
+		<ab:restriction base="ab:string">
+			<ab:pattern value="[a-zA-Z]+" />
+		</ab:restriction>
+	</ab:simpleType>
+	
+	
+	<ab:attributeGroup name="part_weight_range">
+		<ab:attribute name="weight" use="required">
+			<ab:simpleType>
+				<ab:restriction base="ab:integer">
+					<ab:minInclusive value="0" />
+					<ab:maxExclusive value="100" />
+				</ab:restriction>
+			</ab:simpleType>
+		</ab:attribute>
+	</ab:attributeGroup>
+	
+	<ab:attributeGroup name="layer_flow_control_selection">
+		<ab:attribute name="strategy" default="hash">
+			<ab:simpleType>
+				<ab:restriction base="ab:string">
+					<ab:enumeration value="hash"/>
+					<ab:enumeration value="custom"/>
+				</ab:restriction>
+			</ab:simpleType>
+		</ab:attribute>
+		<ab:attribute name="level" type="ab:positiveInteger" use="required"/>
+	</ab:attributeGroup>
+	
+	
+
+</ab:schema>
