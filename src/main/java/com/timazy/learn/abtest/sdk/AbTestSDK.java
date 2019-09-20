@@ -5,10 +5,19 @@ package com.timazy.learn.abtest.sdk;
 *	
 */
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.google.common.escape.CharEscaperBuilder;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import com.google.common.primitives.UnsignedInteger;
+import com.google.common.primitives.UnsignedInts;
+import com.google.common.primitives.UnsignedLong;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import com.timazy.learn.abtest.entity.Domain;
 import com.timazy.learn.abtest.entity.Exp;
 import com.timazy.learn.abtest.entity.Layer;
@@ -111,47 +120,49 @@ public class AbTestSDK {
 	public static void main(String[] args) {
 		int[] bingoMd5 = new int[1000];
 		int[] bingoHash = new int[1000];
-		int[] myHash = new int[1000];
-		String string = "rick123435";
-		
+		int[] bingoMapHash = new int[1000];
+		int[] bingoAndhash = new int[1000];
+		String userid = "rickrickrick";
+		int bkt = 1000;
 		
 		for(int i=0;i<100000;i++){
-			String md5 = encodeMD5(string + getEnoughStr(""+i));
-			String hash = string + getEnoughStr(""+i);
-			String myhash = string + getEnoughStr("" +i);
-			int hashcodemd5 = md5.hashCode();
-			int hashcode = hash.hashCode();
-			int myhashcode = hash(myhash);
-			if (myhashcode<0) {
-				myhashcode *=-1;
-			}
-			if (hashcode<0) {
-				hashcode *=-1;
-			}
-			if (hashcodemd5<0) {
-				hashcodemd5 *=-1;
-			}
-			bingoMd5[hashcodemd5%1000]++;
-			bingoHash[hashcode%1000]++;
-			myHash[myhashcode%1000]++;
+			String md5 = userid + getEnoughStr(""+i);
+			String hash = userid + getEnoughStr(""+i);
+			String mapHash = userid + getEnoughStr("" +i);
+			String andHash = userid + getEnoughStr(""+i);
+			UnsignedLong md5HashCode = UnsignedLong.fromLongBits(Hashing.md5().hashBytes(md5.getBytes()).asLong());
+			UnsignedInteger hashcode = UnsignedInteger.valueOf(hash.hashCode());
+			UnsignedInteger mapHashCode =  UnsignedInteger.valueOf(hash(mapHash));
+			
+			
+			bingoMd5[md5HashCode.mod(UnsignedLong.valueOf(bkt)).intValue()]++;
+			bingoHash[hashcode.mod(UnsignedInteger.valueOf(bkt)).intValue()]++;
+			bingoMapHash[mapHashCode.mod(UnsignedInteger.valueOf(bkt)).intValue()]++;
+			bingoAndhash[(andHash.hashCode() & Integer.MAX_VALUE ) % bkt]++;
 		}
 		long md5count= 0;
-		for(int i=0;i<1000;i++){
+		for(int i=0;i<bkt;i++){
 			md5count += Math.pow(bingoMd5[i] - 100, 2);
 		}
-		System.out.println("md5 方差："+md5count);
+		System.out.println("md5 方差："+md5count/bkt);
 		
 		long hashcount= 0;
-		for(int i=0;i<1000;i++){
+		for(int i=0;i<bkt;i++){
 			hashcount += Math.pow(bingoHash[i] - 100, 2);
 		}
-		System.out.println("hash 方差："+hashcount);
+		System.out.println("hash 方差："+hashcount/bkt);
 		
 		long myhashcount= 0;
-		for(int i=0;i<1000;i++){
-			myhashcount += Math.pow(myHash[i] - 100, 2);
+		for(int i=0;i<bkt;i++){
+			myhashcount += Math.pow(bingoMapHash[i] - 100, 2);
 		}
-		System.out.println("myhash 方差："+myhashcount);
+		System.out.println("myhash 方差："+myhashcount/bkt);
+		
+		long andHashcount= 0;
+		for(int i=0;i<bkt;i++){
+			andHashcount += Math.pow(bingoAndhash[i] - 100, 2);
+		}
+		System.out.println("andhash 方差："+andHashcount/bkt);
 		
 	}
 	

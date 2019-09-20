@@ -77,7 +77,7 @@ public class DynaClassLoader<T> extends ClassLoader{
 		FuncLogic1 logic1  = new FuncLogic1();
 		try {
 			System.out.println(System.currentTimeMillis());
-			byte[] bytes = clone(logic1);
+			byte[] bytes = serialize(logic1);
 			DynaFunc func = (DynaFunc) resolve(bytes);
 			System.out.println(System.currentTimeMillis());
 			Object object = func.doWork(1);
@@ -93,7 +93,7 @@ public class DynaClassLoader<T> extends ClassLoader{
 		
 	}
 	
-	public static byte[] clone(Object b) throws IOException{
+	public static byte[] serialize(Object b) throws IOException{
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
 		objectOutputStream.writeObject(b);

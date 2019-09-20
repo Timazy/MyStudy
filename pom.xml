@@ -48,8 +48,29 @@
 		    <groupId>dom4j</groupId>
 		    <artifactId>dom4j</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>27.0.1-jre</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.roaringbitmap</groupId>
+		    <artifactId>RoaringBitmap</artifactId>
+		    <version>0.8.2</version>
+		</dependency>
 
-
+		<!-- cglib -->
+		<dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib</artifactId>
+		    <version>3.2.10</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.openjdk.jol</groupId>
+		    <artifactId>jol-core</artifactId>
+		    <version>0.9</version>
+		</dependency>
 		
 	</dependencies>
 

@@ -2,6 +2,7 @@ package com.timazy.learn.fullfill.aqs;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 import com.timazy.learn.fullfill.aqs.locker.Lock;
@@ -97,8 +98,11 @@ public class BlockQueue<E> {
 	}
 	
 	public static void main(String[] args) {
-		ReentrantLock lock = new ReentrantLock();
-		BlockingQueue<Object> queue = new ArrayBlockingQueue<>(2);
+		ConcurrentHashMap<String, Object> hashMap = new ConcurrentHashMap<>();
+		System.out.print(hashMap.putIfAbsent("a", "bb"));
+		System.out.print(hashMap.putIfAbsent("a", "a"));
+		
+		
 	}
 	
 }
