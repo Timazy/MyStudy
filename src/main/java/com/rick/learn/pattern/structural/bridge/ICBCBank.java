@@ -5,8 +5,8 @@ package com.rick.learn.pattern.structural.bridge;
  * @Description
  * @Date 2019-12-17
  */
-public class ABCBank extends Bank{
-    public ABCBank(Account account) {
+public class ICBCBank extends Bank {
+    public ICBCBank(Account account) {
         super(account);
     }
 
@@ -14,6 +14,4 @@ public class ABCBank extends Bank{
     Account openAccount() {
         return account.openAccount();
     }
-
-
 }
