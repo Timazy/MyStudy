@@ -35,17 +35,20 @@ public class Course {
         private String duration;
 
         public CourseBuilder buildName(String name){
-            this.name = name;
+            super.name = name;
+            //this.name = name;
             return this;
         }
 
         public CourseBuilder buildDuration(String duration){
-            this.duration = duration;
+            super.duration = duration;
+            //this.duration = duration;
             return this;
         }
 
         public Course build(){
-            return new Course(this);
+            //return new Course(this);
+            return this;
         }
 
     }
