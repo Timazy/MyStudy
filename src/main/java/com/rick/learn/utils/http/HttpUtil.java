@@ -25,7 +25,7 @@ public class HttpUtil {
 					 for (int i=0;i<500;i++){
 				            try {
 				                StringBuilder sb = new StringBuilder();
-				                URL restServiceURL = new URL("http://search-platform-center.test.gegejia.com/test/recommendAb");
+				                URL restServiceURL = new URL("");
 				                HttpURLConnection httpConnection = (HttpURLConnection) restServiceURL.openConnection();
 				                // 打开输出开关
 				                httpConnection.setRequestMethod("POST");
