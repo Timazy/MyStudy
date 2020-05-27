@@ -29,5 +29,9 @@ public class Test {
 
         System.out.println(threadLocal.get());
 
+
+        //log change
+
+        //log change 2
     }
 }
