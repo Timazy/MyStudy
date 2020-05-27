@@ -5,7 +5,7 @@ target
 .classpath
 .project
 .settings
-src/main/webapp/META-INF
+src/main/resources/META-INF
 .idea
 *.iml
 .retry
